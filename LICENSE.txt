@@ -1,0 +1,23 @@
+Copyright (c) 2026 surxoxo
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+1. THE CREDIT: The above copyright notice and this permission notice shall 
+be included in all copies or substantial portions of the Software. 
+The original author 'surxoxo' must be credited in all distributions.
+
+2. MODIFICATIONS: If you modify, rewrite, or add to this code, you must 
+clearly mark it as a "Modified Version." You may not claim ownership 
+of the original logic or the file as a whole, regardless of the 
+scale of your changes.
+
+3. NO WARRANTY: THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY 
+KIND, EXPRESS OR IMPLIED. IN NO EVENT SHALL THE AUTHOR (SURXOXO) BE 
+LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN 
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
