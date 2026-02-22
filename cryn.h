@@ -43,6 +43,13 @@ namespace cryn {
         GetConsoleMode(hOut, &dwMode);
         dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
         SetConsoleMode(hOut, dwMode);
+
+        SetConsoleOutputCP(65001);
+        SetConsoleCP(65001);
+
+        // This syncs the streams so they don't block each other
+        std::ios::sync_with_stdio(false);
+        std::wcout.imbue(std::locale(""));
     }
 
     inline void setFont(int size, const wchar_t* fontName = L"Consolas") 
@@ -165,10 +172,251 @@ namespace cryn {
         cout << endl;
 
     }
+
+    inline void Border(string name, int ms, string colorName, bool rounded)
+    {
+        string code = getColor(colorName);
+        string reset = "\033[0m";
+
+        string sign1, sign2, sign3, sign4, sign5, sign6;
+
+        if (rounded == true)
+        {
+            sign1 = "╭"; sign2 = "─"; sign3 = "╮"; sign4 = "│"; sign5 = "╰"; sign6 = "╯";
+        }
+        if (rounded == false)
+        {
+            sign1 = "╔"; sign2 = "═"; sign3 = "╗"; sign4 = "║"; sign5 = "╚"; sign6 = "╝";
+        }
+
+        cout << code << sign1 << reset;
+        for (int i = 0; i < name.length(); i++)
+        {
+            cout << code << sign2 << reset;
+            Sleep(ms);
+        }
+        Sleep(ms);
+        cout << code << sign3 << reset << endl;
+       
+        Sleep(ms);
+        cout << code << sign4 << reset;
+
+        for (int i = 0; i < name.length(); i++)
+        {
+            cout << name[i];
+            Sleep(ms);
+        }
+        Sleep(ms);
+        cout << code << sign4 << reset << endl;
+
+        Sleep(ms);
+        cout << code << sign5 << reset;
+        for (int i = 0; i < name.length(); i++)
+        {
+            cout << code << sign2 << reset;
+            Sleep(ms);
+        }
+        Sleep(ms);
+        cout << code << sign6 << reset << endl;
+    }
+
+    inline void Grid2x3(string title, string title2, string c1line1, string c2line1, string c1line2, string c2line2, int ms, string colorName, bool rounded)
+    {
+        string code = getColor(colorName);
+        string reset = "\033[0m";
+        int padding = 2;
+        int firstWidth = title.length();
+        if (c1line1.length() > firstWidth)
+            firstWidth = c1line1.length();
+        if (c1line2.length() > firstWidth)
+            firstWidth = c1line2.length();
+
+        int secondWidth = title2.length();
+        if (c2line1.length() > secondWidth)
+            secondWidth = c2line1.length();
+        if (c2line2.length() > secondWidth)
+            secondWidth = c2line2.length();
+
+        int finalWidth = firstWidth + secondWidth + (padding * 2);
+
+        string sign1, sign2, sign3, sign4, sign5, sign6, sign7, sign8, sign9, sign10, sign11;
+
+        if (rounded == true)
+        {
+            sign1 = "╭"; sign2 = "─"; sign3 = "┬";  sign4 = "╮"; sign5 = "│"; sign6 = "├"; sign7 = "┼"; sign8 = "┤";  sign9 = "╰"; sign10 = "┴"; sign11 = "╯";
+        }
+
+        if (rounded == false)
+        {
+            sign1 = "╔"; sign2 = "═"; sign3 = "╦"; sign4 = "╗"; sign5 = "║"; sign6 = "╠"; sign7 = "╬"; sign8 = "╣"; sign9 = "╚"; sign10 = "╩"; sign11 = "╝";
+        }
+
+        cout << code << sign1 << reset;
+
+        for (int i = 0; i < finalWidth - secondWidth; i++)
+        {
+            cout << code << sign2 << reset;
+            Sleep(ms);
+        }
+        cout << code << sign3 << reset;
+
+        for (int i = 0; i < finalWidth - firstWidth; i++)
+        {
+            cout << code << sign2 << reset;
+            Sleep(ms);
+        }
+        cout << code << sign4 << reset << endl;
+
+        cout << code << sign5 << " " << reset;
+
+        for (int i = 0; i < title.length(); i++)
+        {
+            cout << title[i];
+            Sleep(ms);
+        }
+
+        for (int i = 0; i < (finalWidth - secondWidth) - title.length() - 2; i++)
+        {
+            cout << " ";
+            Sleep(ms);
+        }
+
+        cout << code << " " << sign5 << " " << reset;
+
+        for (int i = 0; i < title2.length(); i++)
+        {
+            cout << title2[i];
+            Sleep(ms);
+        }
+
+        for (int i = 0; i < (finalWidth - firstWidth) - title2.length() - 2; i++)
+        {
+            cout << " ";
+            Sleep(ms);
+        }
+
+        cout << code << " " << sign5 << reset << endl;
+
+        cout << code << sign6 << reset;
+        
+
+        for (int i = 0; i < finalWidth - secondWidth; i++)
+        {
+            cout << code << sign2 << reset;
+            Sleep(ms);
+        }
+
+        cout << code << sign7 << reset;
+
+        for (int i = 0; i < finalWidth - firstWidth; i++)
+        {
+            cout << code << sign2 << reset;
+            Sleep(ms);
+        }
+
+        cout << code << sign8 << reset << endl;
+
+        cout << code << sign5 << " " << reset;
+
+        for (int i = 0; i < c1line1.length(); i++)
+        {
+            cout << c1line1[i];
+            Sleep(ms);
+        }
+
+        for (int i = 0; i < (finalWidth - secondWidth) - c1line1.length() - 2; i++)
+        {
+            cout << " ";
+            Sleep(ms);
+        }
+
+        cout << code << " " << sign5 << " " << reset;
+
+        for (int i = 0; i < c2line1.length(); i++)
+        {
+            cout << c2line1[i];
+            Sleep(ms);
+        }
+
+        for (int i = 0; i < (finalWidth - firstWidth) - c2line1.length() - 2; i++)
+        {
+            cout << " ";
+            Sleep(ms);
+        }
+
+        cout << code << " " << sign5 << reset << endl;;
+
+        cout << code << sign6 << reset;
+
+
+        for (int i = 0; i < finalWidth - secondWidth; i++)
+        {
+            cout << code << sign2 << reset;
+            Sleep(ms);
+        }
+
+        cout << code << sign7 << reset;
+
+        for (int i = 0; i < finalWidth - firstWidth; i++)
+        {
+            cout << code << sign2 << reset;
+            Sleep(ms);
+        }
+
+        cout << code << sign8 << reset << endl;
+
+        cout << code << sign5 << " " << reset;
+
+        for (int i = 0; i < c1line2.length(); i++)
+        {
+            cout << c1line2[i];
+            Sleep(ms);
+        }
+
+        for (int i = 0; i < (finalWidth - secondWidth) - c1line2.length() - 2; i++)
+        {
+            cout << " ";
+            Sleep(ms);
+        }
+
+        cout << code << " " << sign5 << " " << reset;
+
+        for (int i = 0; i < c2line2.length(); i++)
+        {
+            cout << c2line2[i];
+            Sleep(ms);
+        }
+
+        for (int i = 0; i < (finalWidth - firstWidth) - c2line2.length() - 2; i++)
+        {
+            cout << " ";
+            Sleep(ms);
+        }
+
+        cout << code << " " << sign5 << reset << endl;
+
+        cout << code << sign9 << reset;
+
+        for (int i = 0; i < finalWidth - secondWidth; i++)
+        {
+            cout << code << sign2 << reset;
+            Sleep(ms);
+        }
+
+        cout << code << sign10 << reset;
+
+        for (int i = 0; i < finalWidth - firstWidth; i++)
+        {
+            cout << code << sign2 << reset;
+            Sleep(ms);
+        }
+        cout << code << sign11 << reset << endl;
+
+    }
 }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///               Check for daily updates: https://github.com/surx0x0/cryn-ui/               ///
-    ///                        Current Version: 1.00 <--- The Build                              ///
+    ///                        Current Version: 1.1 <--- The Build                               ///
     ////////////////////////////////////////////////////////////////////////////////////////////////
