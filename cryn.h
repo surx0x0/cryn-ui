@@ -17,6 +17,8 @@
 #include <Windows.h>
 #include <string>
 #include <chrono>
+#include <fcntl.h>
+#include <io.h>
 
 using namespace std;
 
@@ -34,22 +36,15 @@ namespace cryn {
         return "\033[0m";
     }
 
-    inline void Init() 
+    inline void Init()
     {
-        SetConsoleOutputCP(CP_UTF8);
-        SetConsoleCP(CP_UTF8);
+        SetConsoleOutputCP(65001);
+        SetConsoleCP(65001);
         HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
         DWORD dwMode = 0;
         GetConsoleMode(hOut, &dwMode);
         dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
         SetConsoleMode(hOut, dwMode);
-
-        SetConsoleOutputCP(65001);
-        SetConsoleCP(65001);
-
-        // This syncs the streams so they don't block each other
-        std::ios::sync_with_stdio(false);
-        std::wcout.imbue(std::locale(""));
     }
 
     inline void setFont(int size, const wchar_t* fontName = L"Consolas") 
@@ -77,18 +72,32 @@ namespace cryn {
         cout << endl;
     }
 
-    inline void line(int lenght, int ms, string colorName)
+    inline void line(int length, int ms, string colorName)
     {
         string code = getColor(colorName);
         string reset = "\033[0m";
 
-        for (int i = 0; i < lenght; i++) 
+        for (int i = 0; i < length; i++) 
         {
             cout << code << "─" << reset;
             Sleep(ms);
         }
         cout << endl;
     }
+
+    inline void doubleLine(int length, int ms, string colorName)
+    {
+        string code = getColor(colorName);
+        string reset = "\033[0m";
+
+        for (int i = 0; i < length; i++)
+        {
+            cout << code << "═" << reset;
+            Sleep(ms);
+        }
+        cout << endl;
+    }
+
 
     inline void GlitchType(string message, int ms, string colorName)
     {
@@ -413,10 +422,42 @@ namespace cryn {
         cout << code << sign11 << reset << endl;
 
     }
+
+    inline void rarrow(string colorName)
+    {
+        string color = getColor(colorName);
+        string reset = "\033[0m";
+
+        cout << color << "→" << reset;
+    }
+
+    inline void larrow(string colorName)
+    {
+        string color = getColor(colorName);
+        string reset = "\033[0m";
+
+        
+        cout << color << "←" << reset;
+    }
+    inline void uparrow(string colorName)
+    {
+        string color = getColor(colorName);
+        string reset = "\033[0m";
+
+        cout << color << "↑" << reset;
+    }
+
+    inline void downarrow(string colorName)
+    {
+        string color = getColor(colorName);
+        string reset = "\033[0m";
+
+        cout << color << "↓" << reset;
+    }
 }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ///               Check for daily updates: https://github.com/surx0x0/cryn-ui/               ///
-    ///                        Current Version: 1.1 <--- The Build                               ///
+    ///                        Current Version: 1.15 <--- The Build                              ///
     ////////////////////////////////////////////////////////////////////////////////////////////////
