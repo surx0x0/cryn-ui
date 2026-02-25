@@ -1,29 +1,29 @@
-# 💀 cryn.h — terminal UI helper for C++
+# 💀 cryn.h — C++ terminal UI library
 
-`cryn` is a small header-only library for making your C++ console look decent. Drop it in, call `Init()`, and stop writing the same boilerplate every time you want your CLI to look like something.
+`cryn` is a lightweight, header-only C++ library for styling your Windows console. If you've ever wanted your C++ CLI app to actually look good without spending an hour on boilerplate, this is for you. Drop `cryn.h` into your project, call `Init()`, and start building better-looking console UIs right away.
 
-> Windows only for now. Linux/macOS support is planned.
+> Currently supports Windows. Linux/macOS support is planned.
 
 ---
 
 ## what's in it
 
 **Text**
-- `Type` — typewriter output with custom speed and color
-- `GlitchType` — characters scramble before locking into your text
-- `menu` — animated numbered list, no boilerplate
+- `Type` — typewriter-style console output with custom speed and color
+- `GlitchType` — animated glitch effect that scrambles before revealing your text
+- `menu` — animated numbered list for console menus, no boilerplate
 
 **Lines & Borders**
 - `line` — animated single rule `─────`
 - `doubleLine` — animated double rule `═════`
-- `Border` — draws a box around a string, rounded `╭╮` or sharp `╔╗`
-- `Grid2x3` — a 2-column table with headers and 2 rows of content
+- `Border` — draws a styled box around text, rounded `╭╮` or sharp `╔╗`
+- `Grid2x3` — a 2-column table with headers and 2 rows, great for console dashboards
 
 **Misc**
-- `loadingGlitch` — progress bar with a 20% chance of stuttering
-- `rarrow` `larrow` `uparrow` `downarrow` — colored directional arrows
+- `loadingGlitch` — terminal progress bar with a 20% chance of stuttering
+- `rarrow` `larrow` `uparrow` `downarrow` — colored directional arrows for console navigation
 
-Every function that draws something takes a `ms` delay so the speed is always yours to control.
+Every function takes a `ms` delay parameter so you control the animation speed.
 
 ---
 
@@ -53,24 +53,24 @@ Colors available: `red` `green` `blue` `cyan` `yellow` `magenta`
 ## a few more examples
 
 ```cpp
-// animated dividers
+// animated console dividers
 cryn::line(40, 8, "cyan");
 cryn::doubleLine(40, 8, "magenta");
 
-// box around text
+// styled border around text
 cryn::Border("  connecting...  ", 12, "green", true);   // rounded
 cryn::Border("  ACCESS DENIED  ", 12, "red",   false);  // sharp
 
-// 2-column grid
+// 2-column console grid / table
 cryn::Grid2x3("platform", "status",
               "windows",  "supported",
               "linux",    "soon",
               12, "blue", true);
 
-// loading bar
+// terminal loading bar
 cryn::loadingGlitch(40, 20, 40, "red");
 
-// arrows
+// directional arrows
 cryn::larrow("cyan");
 cryn::rarrow("cyan");
 ```
@@ -80,8 +80,8 @@ For a full working example, check out `demo.cpp`.
 ---
 
 ## roadmap
-- Linux / macOS support
-- more features dropping as time allows
+- Linux / macOS console support
+- more components and styling options over time
 
 ---
 
